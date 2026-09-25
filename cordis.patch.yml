@@ -1,0 +1,6 @@
+# dsh.bundle 补丁：把 Tavily search provider 挂进 host 组合（web 能力缝的 provider 行）。
+# 当前经 profile（~/.dsh/profiles/web/cordis.patch.yml）手工接线（link: 安装）；
+# 发布化（dsh plugin add）时由本文件消费。
+- insert:
+    - id: web-search-tavily
+      name: dsh-web-search-tavily
