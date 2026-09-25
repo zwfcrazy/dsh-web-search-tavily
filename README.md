@@ -53,3 +53,13 @@ dsh plugin --profile web add github:zwfcrazy/dsh-web-search-tavily
 | `WEB_PROVIDER_CREDENTIAL_MISSING` | TAVILY_API_KEY 各层均未解析到 |
 | `WEB_PROVIDER_ERROR` | HTTP 非 200 / 响应不可解析 / 网络失败 |
 | `WEB_ABORTED` | 调用方取消（AbortSignal） |
+
+## 开发注记（2026-09-25 踩坑，DSH 插件作者共勉）
+
+**绝不 `session.append()` 自定义事件类型**。`dsh-session` 的 `KNOWN_SESSION_EVENT_TYPES`
+是出厂词汇表（`web/deepseek-search-llm-request` 之类的一方类型在内，仓外插件类型
+一律不在），未知类型且无 `ignorable` 标记的事件会让**该会话下次 resume 时整份日志
+被拒绝解析**（"refusing to interpret the log"），且公开的 `append()` 签名不支持打
+ignorable 标记——第三方插件对会话日志是只读的。0.1.0 版曾照抄 deepseek provider 的
+recordRequest 观测钩子写入 `web/tavily-search-request`，导致两个会话 resume 炸，
+0.1.1 已删除该钩子（观测让位于存活）。
