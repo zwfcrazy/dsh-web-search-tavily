@@ -1,6 +1,6 @@
 {
   "name": "dsh-web-search-tavily",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tavily search provider for the dsh-web capability seam (ctx.web)：国内网络适配（DNS 快路径 + 阿里 DoH 兜底钉 IP 直连），凭据走 DSH credentials 的 TAVILY_API_KEY",
   "type": "module",
   "main": "lib/index.js",
